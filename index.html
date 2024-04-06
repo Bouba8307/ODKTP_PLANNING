@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Liste de Tâches Interactive</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="page">
+        <div id="todo-container">
+            <!-- todo list header -->
+            <div id="header">
+                <h1>Plannings</h1>
+                <!--La date du jour -->
+                <div class="date">
+                    <p id="day"><span id="today">samedi</span><span id="daymonth"> 30</span> <span
+                            id='month'>Janvier</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- create input box -->
+            <div id="todo-form">
+                <form onsubmit="addTask(event)">
+                    <input type="text" class="input-item" name="input_box" id="input-box"
+                        placeholder="Ajouter une tâche" />
+                    <input type="date" id="due-date" placeholder="Date d'échéance" />
+                    <button type="submit" id="input-button">Ajouter</button>
+                </form>
+            </div>
+
+
+            <!-- task list -->
+            <h2>Liste de tâche</h2>
+            <ul id="list-container"></ul>
+
+            <hr>
+
+            <!-- task list counter  -->
+            <div class="counter-container">
+                <div id="task-counters">
+                    Fait: <span id="completed-counter">0</span> | Restant:
+                    <span id="uncompleted-counter">0</span>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+body {
+    background-color: rgba(255, 255, 255, 0.055);
+    /* blanc avec une transparence de 0.5 */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#todo-container {
+    position: relative;
+    border: 2px solid rgb(29, 32, 54);
+    padding: 20px;
+    background: radial-gradient(circle, rgba(254, 2, 2, 0.028) 0%, rgb(65, 104, 152) 100%);
+    border-radius: 10%;
+}
+
+/* Le rectangle en haut de la bordure */
+#todo-container::before {
+    content: "o";
+    border: 2px solid rgb(29, 32, 54);
+    position: absolute;
+    top: -20px;
+    /* Ajustez la position verticale par rapport au haut du conteneur */
+    left: 50%;
+    /* Centre horizontalement */
+    transform: translateX(-50%);
+    /* Recentre par rapport à son propre centre */
+    width: 80px;
+    /* Largeur du rectangle */
+    height: 20px;
+    /* Hauteur du rectangle */
+    background-color: none;
+    /* Couleur du rectangle */
+    border-radius: 25px 25px 5px 5px;
+    /* Border radius pour créer des coins arrondis en bas */
+}
+
+
+#input-box {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #4978e7;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+#due-date {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #4978e7;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+#input-button {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+    padding: 10px;
+    border: none;
+    color: #000000;
+    border-radius: 5px;
+    background-color: #2e60ea;
+}
+
+.task button {
+    background: rgb(12, 124, 251);
+    border-radius: 5px;
+    margin: 0px 5px;
+    padding: 3px 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    float: right;
+}
+
+hr {
+    border: 3px solid #0033ff;
+}
+
+#header {
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#input-button:hover {
+    background-color: #f2f6f0;
+    color: #3a00f7;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+}
+
+li {
+    border: 2px solid rgb(65, 109, 192);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn,
+.complete-btn {
+    float: right;
+    color: crimson;
+    cursor: pointer;
+    margin-left: 3%;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: rgb(100, 100, 100);
+    border: 3px solid rgb(107, 108, 107);
+}
+
+@keyframes succes-pulse {
+    0% {
+        box-shadow: 0px 0px 20px 10px rgba(13, 83, 188, 0.2);
+    }
+
+    60% {
+        box-shadow: 0px 0px 20px 10px rgba(14, 9, 34, 0.4);
+    }
+
+    100% {
+        box-shadow: 1px 0px 20px 10px rgba(87, 84, 79, 0.2);
+    }
+}
