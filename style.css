@@ -107,6 +107,7 @@ h1 {
 #input-button:hover {
     background-color: #f2f6f0;
     color: #3a00f7;
+    border: 2px solid #030303;
 }
 
 /* Styles pour le tableau */
@@ -119,18 +120,18 @@ h1 {
 
 #task-table th,
 #task-table td {
-    border: 3px solid rgb(8, 91, 247);
+    border: 2px solid rgb(56, 62, 74);
     padding: 8px;
     text-align: center;
 }
 
 #task-table th {
-    background-color: var(--couleur-bleue);
+    background-color: #f2f6f0;
     color: rgb(4, 4, 4);
 }
 
 #task-table .completed {
-    text-decoration: line-through;
+    text-decoration: 2px line-through;
     color: rgb(84, 84, 84);
     border: 3px solid rgb(107, 108, 107);
 }
