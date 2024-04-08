@@ -17,12 +17,15 @@ function saveData() {
     taskElements.forEach(function (taskElement) {
         const task = {
             text: taskElement.querySelector("span").textContent,
-            completed: taskElement.classList.contains("completed")
+            completed: taskElement.classList.contains("completed"),
+            dueDate: taskElement.querySelector(".due-date").textContent,
+            priority: taskElement.querySelector(".priority").textContent  // Sauvegarder la priorité
         };
         tasks.push(task);
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
 
 function loadData() {
     const tasks = JSON.parse(localStorage.getItem("tasks"));
@@ -31,18 +34,18 @@ function loadData() {
             const li = document.createElement("li");
             li.innerHTML = `
                 <label>
-                    <input type="checkbox">
+                    <input type="checkbox" ${task.completed ? "checked" : ""}>
                     <span>${task.text}</span>
-                    <span class="due-date"> A faire avant: ${task.dueDate}</span>
+                    <span class="due-date">${task.dueDate}</span>
+                    <span class="priority">${task.priority}</span> <!-- Afficher la priorité -->
                     <span class="edit-btn">
                         <img src="img/modifier.svg" alt="Modifier" width="24" height="24">
                     </span>
                     <span class="delete-btn">
-                        <img src="img/effacer.svg" alt="Modifier" width="24" height="24">
+                        <img src="img/effacer.svg" alt="Supprimer" width="24" height="24">
                     </span> 
                 </label>
             `;
-
             if (task.completed) {
                 li.classList.add("completed");
             }
@@ -70,7 +73,7 @@ function loadData() {
 
             const deleteBtn = li.querySelector(".delete-btn");
             deleteBtn.addEventListener("click", function () {
-                if (confirm("Vous êtes sûr de le supprimer ?")) {
+                if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
                     li.remove();
                     updateCounters();
                     saveData();
@@ -83,15 +86,18 @@ function loadData() {
 }
 
 
+
+
 $(document).ready(function () {
     function showDate() {
-        let suffix = "", date = new Date(), dayOfMonth = date.getDate(), dayOfWeek = date.getDay(), Month = date.getMonth(),
+        var suffix = "", date = new Date(), dayOfMonth = date.getDate(), dayOfWeek = date.getDay(), Month = date.getMonth(),
             $today = $('#today'),
             $daymonth = $('#daymonth'),
             $month = $('#month');
 
-        let dayArray = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
-        let monthArray = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+        var dayArray = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        var monthArray = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+
 
         // Mettre à jour la date dans le HTML
         $today.text(dayArray[dayOfWeek] + ",");
@@ -106,7 +112,8 @@ $(document).ready(function () {
 
 function addTask() {
     const task = inputBox.value.trim();
-    const dueDate = document.getElementById("due-date").value;
+    const dueDate = document.getElementById('due-date').value;
+    const priority = document.querySelector('input[name="priority"]:checked').value;
 
     if (!task) {
         alert("Merci de noter une tâche");
@@ -114,24 +121,36 @@ function addTask() {
         return;
     }
 
+    // Vérifier la date sélectionnée
+    const selectedDate = new Date(dueDate);
+    const currentDate = new Date();
+
+    if (selectedDate < currentDate ) {
+        // Alerte si la date sélectionnée est passée ou égale à aujourd'hui
+        alert("La date d'échéance doit être ultérieure à aujourd'hui.");
+        return;
+    }
+
+
     const li = document.createElement("li");
     li.innerHTML = `
         <label>
             <input type="checkbox">
             <span>${task}</span>
-            <span class="due-date">Due: ${dueDate}</span>
+            <span class="due-date"> / ${dueDate}</span>
+            <span class="priority"> / ${priority}</span>
             <span class="edit-btn">
                 <img src="img/modifier.svg" alt="Modifier" width="24" height="24">
             </span>
             <span class="delete-btn">
-                <img src="img/effacer.svg" alt="Modifier" width="24" height="24">
-            </span> 
+                <img src="img/effacer.svg" alt="Supprimer" width="24" height="24">
+            </span>
         </label>
     `;
 
     listContainer.appendChild(li);
     inputBox.value = "";
-    document.getElementById("due-date").value = ""; // Efface la valeur du champ de date après l'ajout
+    document.getElementById('due-date').value = "";
 
     const checkbox = li.querySelector("input");
     const editBtn = li.querySelector(".edit-btn");
@@ -156,7 +175,7 @@ function addTask() {
     });
 
     deleteBtn.addEventListener("click", function () {
-        if (confirm("Vous êtes sûr de le supprimer ?")) {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
             li.remove();
             updateCounters();
             saveData();
@@ -167,6 +186,9 @@ function addTask() {
     saveData();
 }
 
+
+
+
 inputBox.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
         addTask();
@@ -174,4 +196,3 @@ inputBox.addEventListener("keyup", function (event) {
 });
 
 loadData(); // Charger les données au chargement de la page
-

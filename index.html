@@ -2,8 +2,11 @@
 <html lang="en">
 
 <head>
-    <title> Liste de Tâches Interactive</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste de Tâches Interactive</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -12,7 +15,7 @@
             <!-- todo list header -->
             <div id="header">
                 <h1>Plannings</h1>
-                <!--La date du jour -->
+                <!-- La date du jour -->
                 <div class="date">
                     <p id="day"><span id="today">samedi</span><span id="daymonth"> 30</span> <span
                             id='month'>Janvier</span>
@@ -21,18 +24,35 @@
             </div>
 
             <!-- create input box -->
+            <!-- create input box -->
             <div id="todo-form">
-                <form onsubmit="addTask(event)">
-                    <input type="text" class="input-item" name="input_box" id="input-box"
-                        placeholder="Ajouter une tâche" />
-                    <input type="date" id="due-date" placeholder="Date d'échéance" />
-                    <button type="submit" id="input-button">Ajouter</button>
-                </form>
+                <input type="text" class="input-item" name="input_box" id="input-box" placeholder="Ajouter une tâche" />
+                <input type="date" id="due-date" name="due_date" placeholder="Date d'échéance" />
+
+                <!-- Ajouter des boutons radio pour la priorité -->
+                <div class="priorite">
+                    <label>
+                        <input type="radio" name="priority" value="Faible" checked>
+                        Faible
+                    </label>
+                    <label>
+                        <input type="radio" name="priority" value="Moyenne" alt="Priorité Moyenne">
+                        Moyenne
+                    </label>
+                    <label>
+                        <input type="radio" name="priority" value="Élevée">
+                        Élevée
+                    </label>
+                </div>
+
+
+                <!-- add button  -->
+                <button id="input-button" onclick="addTask()">Ajouter</button>
             </div>
 
 
             <!-- task list -->
-            <h2>Liste de tâche</h2>
+            <h2>Liste de tâches</h2>
             <ul id="list-container"></ul>
 
             <hr>
@@ -45,10 +65,8 @@
                 </div>
             </div>
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script type="text/javascript" src="script.js"></script>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>

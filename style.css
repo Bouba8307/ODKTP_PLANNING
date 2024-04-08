@@ -8,12 +8,17 @@ body {
     justify-content: center;
     min-height: 100vh;
 
+
+}
+
+:root {
+    --couleur-bleue: #2e60ea;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+  
 }
 
 #todo-container {
@@ -26,7 +31,7 @@ body {
 
 /* Le rectangle en haut de la bordure */
 #todo-container::before {
-    content: "o";
+    content: "°";
     border: 2px solid rgb(29, 32, 54);
     position: absolute;
     top: -20px;
@@ -45,23 +50,30 @@ body {
     /* Border radius pour créer des coins arrondis en bas */
 }
 
+.counter-container {
+    color: #2e60ea;
+    font-size: 25px;
+    text-shadow: 1px 1px 2px black, 0 0 25px rgb(9, 9, 31), 0 0 5px rgb(180, 180, 190);
+
+}
 
 #input-box {
     width: 200px;
     padding: 10px;
-    border: 2px solid #4978e7;
+    border: 2px solid var(--couleur-bleue);
     border-radius: 5px;
     margin-right: 5px;
     font-size: 20px;
 }
 
 #due-date {
-    width: 200px;
+    width: 120px;
     padding: 10px;
-    border: 2px solid #4978e7;
-    border-radius: 5px;
-    margin-right: 5px;
-    font-size: 20px;
+    border: 2px solid var(--couleur-bleue);
+    border-radius: 3px;
+    margin-left: px;
+    font-size: 16px;
+    color: #4800ff;
 }
 
 #input-button {
@@ -70,13 +82,14 @@ body {
     transition: 0.4s;
     padding: 10px;
     border: none;
-    color: #000000;
+    color: #ffffff;
     border-radius: 5px;
-    background-color: #2e60ea;
+    background-color: var(--couleur-bleue);
+    border: 2px solid var(--couleur-bleue);
 }
 
 .task button {
-    background: rgb(12, 124, 251);
+    background: rgb(37, 89, 148);
     border-radius: 5px;
     margin: 0px 5px;
     padding: 3px 5px;
@@ -87,13 +100,14 @@ body {
 }
 
 hr {
-    border: 3px solid #0033ff;
+    border: 0.5px solid #0033ff;
 }
 
 #header {
     margin: 5px;
     font-size: 20px;
     text-align: center;
+    color: #0033ff;
 }
 
 h1 {
@@ -115,9 +129,10 @@ ul {
 li {
     border: 2px solid rgb(65, 109, 192);
     border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
     margin-top: 10px;
+
 }
 
 .edit-btn,
@@ -126,25 +141,16 @@ li {
     float: right;
     color: crimson;
     cursor: pointer;
-    margin-left: 3%;
+}
+
+.priorite {
+    margin: 25px;
+    border: 2px solid var(--couleur-bleue);
+    padding: 6px;
 }
 
 .completed {
     text-decoration: line-through;
-    color: rgb(100, 100, 100);
+    color: rgb(84, 84, 84);
     border: 3px solid rgb(107, 108, 107);
-}
-
-@keyframes succes-pulse {
-    0% {
-        box-shadow: 0px 0px 20px 10px rgba(13, 83, 188, 0.2);
-    }
-
-    60% {
-        box-shadow: 0px 0px 20px 10px rgba(14, 9, 34, 0.4);
-    }
-
-    100% {
-        box-shadow: 1px 0px 20px 10px rgba(87, 84, 79, 0.2);
-    }
 }
