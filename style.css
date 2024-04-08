@@ -1,4 +1,6 @@
- body {
+/* Styles par défaut */
+
+body {
     background-color: rgba(255, 255, 255, 0.055);
     font-family: Arial, sans-serif;
     text-align: center;
@@ -60,7 +62,6 @@
     border: 2px solid var(--couleur-bleue);
     border-radius: 3px;
     margin-left: 5px;
-    /* Ajoutez une valeur de marge gauche */
     font-size: 16px;
     color: #4800ff;
 }
@@ -108,7 +109,8 @@ h1 {
     color: #3a00f7;
 }
 
-/* Style pour le tableau */
+/* Styles pour le tableau */
+
 #task-table {
     width: 100%;
     border-collapse: collapse;
@@ -131,4 +133,114 @@ h1 {
     text-decoration: line-through;
     color: rgb(84, 84, 84);
     border: 3px solid rgb(107, 108, 107);
+}
+
+/* Styles responsifs pour les petits écrans */
+
+@media screen and (max-width: 360px) {
+
+    /* Styles spécifiques pour les écrans de 360px de largeur ou moins */
+    #input-box {
+        width: 140px;
+        font-size: 14px;
+    }
+
+    #due-date {
+        width: 100px;
+        font-size: 14px;
+    }
+
+    #input-button {
+        font-size: 16px;
+    }
+
+    #task-table th,
+    #task-table td {
+        padding: 6px;
+    }
+
+    h1 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 361px) and (max-width: 460px) {
+
+    /* Styles spécifiques pour les écrans entre 361px et 460px de largeur */
+    #input-box {
+        width: 160px;
+        font-size: 16px;
+    }
+
+    #due-date {
+        width: 110px;
+        font-size: 14px;
+    }
+
+    #input-button {
+        font-size: 18px;
+    }
+
+    #task-table th,
+    #task-table td {
+        padding: 7px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 461px) and (max-width: 560px) {
+
+    /* Styles spécifiques pour les écrans entre 461px et 560px de largeur */
+    #input-box {
+        width: 180px;
+        font-size: 18px;
+    }
+
+    #due-date {
+        width: 120px;
+        font-size: 14px;
+    }
+
+    #input-button {
+        font-size: 20px;
+    }
+
+    #task-table th,
+    #task-table td {
+        padding: 8px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-width: 561px) and (max-width: 760px) {
+
+    /* Styles spécifiques pour les écrans entre 561px et 760px de largeur */
+    #input-box {
+        width: 200px;
+        font-size: 18px;
+    }
+
+    #due-date {
+        width: 120px;
+        font-size: 16px;
+    }
+
+    #input-button {
+        font-size: 22px;
+    }
+
+    #task-table th,
+    #task-table td {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
 }
