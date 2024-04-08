@@ -12,10 +12,8 @@
 <body>
     <div class="page">
         <div id="todo-container">
-            <!-- todo list header -->
             <div id="header">
                 <h1>Plannings</h1>
-                <!-- La date du jour -->
                 <div class="date">
                     <p id="day"><span id="today">samedi</span><span id="daymonth"> 30</span> <span
                             id='month'>Janvier</span>
@@ -23,20 +21,17 @@
                 </div>
             </div>
 
-            <!-- create input box -->
-            <!-- create input box -->
             <div id="todo-form">
                 <input type="text" class="input-item" name="input_box" id="input-box" placeholder="Ajouter une tâche" />
                 <input type="date" id="due-date" name="due_date" placeholder="Date d'échéance" />
 
-                <!-- Ajouter des boutons radio pour la priorité -->
                 <div class="priorite">
                     <label>
                         <input type="radio" name="priority" value="Faible" checked>
                         Faible
                     </label>
                     <label>
-                        <input type="radio" name="priority" value="Moyenne" alt="Priorité Moyenne">
+                        <input type="radio" name="priority" value="Moyenne">
                         Moyenne
                     </label>
                     <label>
@@ -45,19 +40,22 @@
                     </label>
                 </div>
 
-
-                <!-- add button  -->
                 <button id="input-button" onclick="addTask()">Ajouter</button>
             </div>
 
-
-            <!-- task list -->
             <h2>Liste de tâches</h2>
-            <ul id="list-container"></ul>
+            <table id="task-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">À faire</th>
+                        <th>Date d'échéance</th>
+                        <th>Priorité</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="list-container"></tbody>
+            </table>
 
-            <hr>
-
-            <!-- task list counter  -->
             <div class="counter-container">
                 <div id="task-counters">
                     Fait: <span id="completed-counter">0</span> | Restant:

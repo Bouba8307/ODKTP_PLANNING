@@ -5,7 +5,7 @@ const uncompletedCounter = document.getElementById("uncompleted-counter");
 
 function updateCounters() {
     const completedTasks = document.querySelectorAll(".completed").length;
-    const uncompletedTasks = document.querySelectorAll("li:not(.completed)").length;
+    const uncompletedTasks = document.querySelectorAll("tr:not(.completed)").length - 1;
 
     completedCounter.textContent = completedTasks;
     uncompletedCounter.textContent = uncompletedTasks;
@@ -13,80 +13,26 @@ function updateCounters() {
 
 function saveData() {
     const tasks = [];
-    const taskElements = document.querySelectorAll("li");
-    taskElements.forEach(function (taskElement) {
-        const task = {
-            text: taskElement.querySelector("span").textContent,
-            completed: taskElement.classList.contains("completed"),
-            dueDate: taskElement.querySelector(".due-date").textContent,
-            priority: taskElement.querySelector(".priority").textContent  // Sauvegarder la priorité
+    const taskRows = document.querySelectorAll("#list-container tr");
+    taskRows.forEach(function (taskRow) {
+        const taskData = {
+            text: taskRow.dataset.taskText,
+            completed: taskRow.classList.contains("completed"),
+            dueDate: taskRow.dataset.taskDueDate,
+            priority: taskRow.dataset.taskPriority
         };
-        tasks.push(task);
+        tasks.push(taskData);
     });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-
 function loadData() {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    if (tasks) {
-        tasks.forEach(function (task) {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <label>
-                    <input type="checkbox" ${task.completed ? "checked" : ""}>
-                    <span>${task.text}</span>
-                    <span class="due-date">${task.dueDate}</span>
-                    <span class="priority">${task.priority}</span> <!-- Afficher la priorité -->
-                    <span class="edit-btn">
-                        <img src="img/modifier.svg" alt="Modifier" width="24" height="24">
-                    </span>
-                    <span class="delete-btn">
-                        <img src="img/effacer.svg" alt="Supprimer" width="24" height="24">
-                    </span> 
-                </label>
-            `;
-            if (task.completed) {
-                li.classList.add("completed");
-            }
-            listContainer.appendChild(li);
-
-            const checkbox = li.querySelector("input");
-            checkbox.addEventListener("click", function () {
-                li.classList.toggle("completed", checkbox.checked);
-                updateCounters();
-                saveData();
-            });
-
-            const editBtn = li.querySelector(".edit-btn");
-            const taskSpan = li.querySelector("span");
-            editBtn.addEventListener("click", function () {
-                const update = prompt("Modifier la tâche", taskSpan.textContent);
-                if (update !== null) {
-                    taskSpan.textContent = update;
-                    li.classList.remove("completed");
-                    checkbox.checked = false;
-                    updateCounters();
-                    saveData();
-                }
-            });
-
-            const deleteBtn = li.querySelector(".delete-btn");
-            deleteBtn.addEventListener("click", function () {
-                if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-                    li.remove();
-                    updateCounters();
-                    saveData();
-                }
-            });
-
-            updateCounters();
-        });
-    }
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(function (task) {
+        addTaskToTable(task);
+    });
+    updateCounters();
 }
-
-
-
 
 $(document).ready(function () {
     function showDate() {
@@ -110,6 +56,70 @@ $(document).ready(function () {
 });
 
 
+function addTaskToTable(task) {
+    const tableRow = document.createElement("tr");
+    tableRow.dataset.taskText = task.text;
+    tableRow.dataset.taskDueDate = task.dueDate;
+    tableRow.dataset.taskPriority = task.priority;
+
+    const checkboxCell = document.createElement("td");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    checkbox.addEventListener("change", function () {
+        tableRow.classList.toggle("completed", checkbox.checked);
+        updateCounters();
+        saveData();
+    });
+    checkboxCell.appendChild(checkbox);
+    tableRow.appendChild(checkboxCell);
+
+    const taskCell = document.createElement("td");
+    taskCell.textContent = task.text;
+    tableRow.appendChild(taskCell);
+
+    const dueDateCell = document.createElement("td");
+    dueDateCell.textContent = task.dueDate;
+    tableRow.appendChild(dueDateCell);
+
+    const priorityCell = document.createElement("td");
+    priorityCell.textContent = task.priority;
+    tableRow.appendChild(priorityCell);
+
+    const actionsCell = document.createElement("td");
+    const editButton = document.createElement("button");
+    editButton.innerHTML = `<img src="img/modifier.svg" alt="Modifier" width="24" height="24">`;
+    editButton.addEventListener("click", function () {
+        const newText = prompt("Modifier la tâche", task.text);
+        if (newText !== null) {
+            taskCell.textContent = newText;
+            tableRow.classList.remove("completed");
+            checkbox.checked = false;
+            updateCounters();
+            saveData();
+        }
+    });
+    actionsCell.appendChild(editButton);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML = `<img src="img/effacer.svg" alt="Supprimer" width="24" height="24"  >`;
+    deleteButton.addEventListener("click", function () {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
+            tableRow.remove();
+            updateCounters();
+            saveData();
+        }
+    });
+    actionsCell.appendChild(deleteButton);
+
+
+    tableRow.appendChild(actionsCell);
+    tableRow.classList.toggle("completed", task.completed);
+    listContainer.appendChild(tableRow);
+
+    updateCounters();
+}
+
 function addTask() {
     const task = inputBox.value.trim();
     const dueDate = document.getElementById('due-date').value;
@@ -117,77 +127,22 @@ function addTask() {
 
     if (!task) {
         alert("Merci de noter une tâche");
-        console.log("pas de tâche");
         return;
     }
 
-    // Vérifier la date sélectionnée
-    const selectedDate = new Date(dueDate);
-    const currentDate = new Date();
+    const newTask = {
+        text: task,
+        completed: false,
+        dueDate: dueDate,
+        priority: priority
+    };
 
-    if (selectedDate < currentDate ) {
-        // Alerte si la date sélectionnée est passée ou égale à aujourd'hui
-        alert("La date d'échéance doit être ultérieure à aujourd'hui.");
-        return;
-    }
-
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-        <label>
-            <input type="checkbox">
-            <span>${task}</span>
-            <span class="due-date"> / ${dueDate}</span>
-            <span class="priority"> / ${priority}</span>
-            <span class="edit-btn">
-                <img src="img/modifier.svg" alt="Modifier" width="24" height="24">
-            </span>
-            <span class="delete-btn">
-                <img src="img/effacer.svg" alt="Supprimer" width="24" height="24">
-            </span>
-        </label>
-    `;
-
-    listContainer.appendChild(li);
+    addTaskToTable(newTask);
     inputBox.value = "";
     document.getElementById('due-date').value = "";
 
-    const checkbox = li.querySelector("input");
-    const editBtn = li.querySelector(".edit-btn");
-    const taskSpan = li.querySelector("span");
-    const deleteBtn = li.querySelector(".delete-btn");
-
-    checkbox.addEventListener("click", function () {
-        li.classList.toggle("completed", checkbox.checked);
-        updateCounters();
-        saveData();
-    });
-
-    editBtn.addEventListener("click", function () {
-        const update = prompt("Modifier la tâche", taskSpan.textContent);
-        if (update !== null) {
-            taskSpan.textContent = update;
-            li.classList.remove("completed");
-            checkbox.checked = false;
-            updateCounters();
-            saveData();
-        }
-    });
-
-    deleteBtn.addEventListener("click", function () {
-        if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
-            li.remove();
-            updateCounters();
-            saveData();
-        }
-    });
-
-    updateCounters();
     saveData();
 }
-
-
-
 
 inputBox.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {

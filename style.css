@@ -1,14 +1,11 @@
-body {
+ body {
     background-color: rgba(255, 255, 255, 0.055);
-    /* blanc avec une transparence de 0.5 */
     font-family: Arial, sans-serif;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-
-
 }
 
 :root {
@@ -18,7 +15,7 @@ body {
 * {
     margin: 0;
     padding: 0;
-  
+    box-sizing: border-box;
 }
 
 #todo-container {
@@ -29,32 +26,23 @@ body {
     border-radius: 10%;
 }
 
-/* Le rectangle en haut de la bordure */
 #todo-container::before {
     content: "°";
     border: 2px solid rgb(29, 32, 54);
     position: absolute;
     top: -20px;
-    /* Ajustez la position verticale par rapport au haut du conteneur */
     left: 50%;
-    /* Centre horizontalement */
     transform: translateX(-50%);
-    /* Recentre par rapport à son propre centre */
     width: 80px;
-    /* Largeur du rectangle */
     height: 20px;
-    /* Hauteur du rectangle */
     background-color: none;
-    /* Couleur du rectangle */
     border-radius: 25px 25px 5px 5px;
-    /* Border radius pour créer des coins arrondis en bas */
 }
 
 .counter-container {
     color: #2e60ea;
     font-size: 25px;
     text-shadow: 1px 1px 2px black, 0 0 25px rgb(9, 9, 31), 0 0 5px rgb(180, 180, 190);
-
 }
 
 #input-box {
@@ -71,7 +59,8 @@ body {
     padding: 10px;
     border: 2px solid var(--couleur-bleue);
     border-radius: 3px;
-    margin-left: px;
+    margin-left: 5px;
+    /* Ajoutez une valeur de marge gauche */
     font-size: 16px;
     color: #4800ff;
 }
@@ -95,7 +84,7 @@ body {
     padding: 3px 5px;
     border: none;
     cursor: pointer;
-    color: white;
+    color: rgb(170, 66, 66);
     float: right;
 }
 
@@ -119,37 +108,26 @@ h1 {
     color: #3a00f7;
 }
 
-ul {
-    list-style: none;
-    padding: 0;
+/* Style pour le tableau */
+#task-table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 20px;
-    text-align: left;
 }
 
-li {
-    border: 2px solid rgb(65, 109, 192);
-    border-radius: 5px;
-    margin-bottom: 5px;
-    padding: 5px;
-    margin-top: 10px;
-
+#task-table th,
+#task-table td {
+    border: 3px solid rgb(8, 91, 247);
+    padding: 8px;
+    text-align: center;
 }
 
-.edit-btn,
-.delete-btn,
-.complete-btn {
-    float: right;
-    color: crimson;
-    cursor: pointer;
+#task-table th {
+    background-color: var(--couleur-bleue);
+    color: rgb(4, 4, 4);
 }
 
-.priorite {
-    margin: 25px;
-    border: 2px solid var(--couleur-bleue);
-    padding: 6px;
-}
-
-.completed {
+#task-table .completed {
     text-decoration: line-through;
     color: rgb(84, 84, 84);
     border: 3px solid rgb(107, 108, 107);
