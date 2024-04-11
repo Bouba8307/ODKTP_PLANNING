@@ -141,6 +141,7 @@ function addTask() {
         return;
     }
 
+
     const newTask = {
         text: task,
         completed: false,
