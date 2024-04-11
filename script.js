@@ -120,10 +120,21 @@ function addTaskToTable(task) {
     updateCounters();
 }
 
+
 function addTask() {
     const task = inputBox.value.trim();
     const dueDate = document.getElementById('due-date').value;
     const priority = document.querySelector('input[name="priority"]:checked').value;
+    // Vérifier la date sélectionnée
+    const selectedDate = new Date(dueDate);
+    const currentDate = new Date();
+
+
+    if (currentDate >= selectedDate) {
+        // Alerte si la date sélectionnée est passée ou égale à aujourd'hui
+        alert("La date d'échéance doit être ultérieure à aujourd'hui.");
+        return;
+    }
 
     if (!task) {
         alert("Merci de noter une tâche");
