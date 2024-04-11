@@ -1,0 +1,33 @@
+# Taskify
+
+## Description
+Plannings est une application web interactive conçue pour aider les utilisateurs à gérer leurs tâches quotidiennes de manière efficace. L'application permet aux utilisateurs d'ajouter, de supprimer et de personnaliser leurs tâches, tout en offrant une expérience conviviale et esthétiquement agréable.
+
+## Technologies utilisées
+- HTML
+- CSS
+- JavaScript
+- jQuery
+
+## Installation
+1. Cloner ce dépôt sur votre machine locale.
+2. Ouvrir le fichier index.html dans un navigateur web.
+
+## Guide d'utilisation
+- Saisissez une tâche dans le champ "Ajouter une tâche".
+- Sélectionnez la date d'échéance de la tâche.
+- Choisissez la priorité de la tâche (Faible, Moyenne, Élevée).
+- Cliquez sur le bouton "Ajouter" pour ajouter la tâche à la liste.
+- Cochez la case à côté d'une tâche pour la marquer comme complétée.
+- Cliquez sur le bouton "Modifier" pour modifier le texte d'une tâche.
+- Cliquez sur le bouton "Supprimer" pour supprimer une tâche de la liste.
+
+## Fonctionnalités bonus
+- Marquez les tâches comme complétées en cochant la case à côté d'elles.
+- Les données des tâches sont sauvegardées localement dans le navigateur pour une persistance des données.
+
+## Auteur
+Ce projet a été réalisé par Boubacar Traoré.
+
+## License
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
