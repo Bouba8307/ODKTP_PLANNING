@@ -146,7 +146,7 @@ h1 {
 }
 
 /* Animation pour l'ajout des taches */
-  
+
 @keyframes fadeIn {
     from {
         opacity: 50%;
@@ -154,7 +154,7 @@ h1 {
     }
 
     to {
-        opacity:1;
+        opacity: 1;
         transform: translateY(0);
     }
 }
@@ -172,6 +172,12 @@ tr.task-row {
     #input-box {
         width: 140px;
         font-size: 14px;
+    }
+
+    #task-table .completed {
+        text-decoration: 2px line-through;
+        color: rgb(84, 84, 84);
+        border: 3px solid rgb(107, 108, 107);
     }
 
     #due-date {
@@ -199,6 +205,12 @@ tr.task-row {
     #input-box {
         width: 160px;
         font-size: 16px;
+    }
+
+    #task-table .completed {
+        text-decoration: 2px line-through;
+        color: rgb(84, 84, 84);
+        border: 3px solid rgb(107, 108, 107);
     }
 
     #due-date {
@@ -233,6 +245,12 @@ tr.task-row {
         font-size: 14px;
     }
 
+    #task-table .completed {
+        text-decoration: 2px line-through;
+        color: rgb(84, 84, 84);
+        border: 3px solid rgb(107, 108, 107);
+    }
+
     #input-button {
         font-size: 20px;
     }
@@ -253,6 +271,12 @@ tr.task-row {
     #input-box {
         width: 200px;
         font-size: 18px;
+    }
+
+    #task-table .completed {
+        text-decoration: 2px line-through;
+        color: rgb(84, 84, 84);
+        border: 3px solid rgb(107, 108, 107);
     }
 
     #due-date {
