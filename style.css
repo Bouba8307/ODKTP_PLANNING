@@ -1,5 +1,5 @@
 body {
-    background-color: rgba(255, 255, 255, 0.055);
+    background-image: linear-gradient(147deg, transparent 0%, transparent 8%, rgba(63, 106, 202, 0.08) 8%, rgba(63, 106, 202, 0.08) 46%, transparent 46%, transparent 100%), linear-gradient(107deg, transparent 0%, transparent 21%, rgba(63, 106, 202, 0.08) 21%, rgba(63, 106, 202, 0.08) 53%, transparent 53%, transparent 100%), linear-gradient(288deg, transparent 0%, transparent 35%, rgba(63, 106, 202, 0.08) 35%, rgba(63, 106, 202, 0.08) 91%, transparent 91%, transparent 100%), linear-gradient(90deg, rgb(176, 167, 167), rgb(255, 255, 255));
     font-family: Arial, sans-serif;
     text-align: center;
     display: flex;
@@ -24,6 +24,15 @@ body {
     padding: 20px;
     background: radial-gradient(circle, rgba(254, 2, 2, 0.028) 0%, rgb(65, 104, 152) 100%);
     border-radius: 10%;
+    margin: 25px;
+}
+
+#input-button {
+    margin: 2%;
+}
+
+.priorite {
+    margin: 2%;
 }
 
 #todo-container::before {
@@ -89,6 +98,7 @@ body {
 
 hr {
     border: 0.5px solid #0033ff;
+    margin: 2%;
 }
 
 #header {
@@ -101,6 +111,7 @@ hr {
 h1 {
     margin-bottom: 20px;
 }
+
 
 #input-button:hover {
     background-color: #f2f6f0;
@@ -133,6 +144,25 @@ h1 {
     color: rgb(84, 84, 84);
     border: 3px solid rgb(107, 108, 107);
 }
+
+/* Animation pour l'ajout des taches */
+  
+@keyframes fadeIn {
+    from {
+        opacity: 50%;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+tr.task-row {
+    animation: fadeIn 1s ease-in-out forwards;
+}
+
 
 /* Styles responsifs pour les petits écrans */
 

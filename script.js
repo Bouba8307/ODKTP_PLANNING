@@ -1,16 +1,19 @@
+// Variables globales
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 const completedCounter = document.getElementById("completed-counter");
 const uncompletedCounter = document.getElementById("uncompleted-counter");
 
+// Fonction pour mettre à jour les compteurs
 function updateCounters() {
     const completedTasks = document.querySelectorAll(".completed").length;
-    const uncompletedTasks = document.querySelectorAll("tr:not(.completed)").length - 1;
+    const uncompletedTasks = document.querySelectorAll("tr:not(.completed)").length;
 
     completedCounter.textContent = completedTasks;
-    uncompletedCounter.textContent = uncompletedTasks;
+    uncompletedCounter.textContent = uncompletedTasks - 1;
 }
 
+// Fonction pour sauvegarder les données dans le localStorage
 function saveData() {
     const tasks = [];
     const taskRows = document.querySelectorAll("#list-container tr");
@@ -26,6 +29,7 @@ function saveData() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+// Fonction pour charger les données depuis le localStorage
 function loadData() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.forEach(function (task) {
@@ -34,28 +38,7 @@ function loadData() {
     updateCounters();
 }
 
-$(document).ready(function () {
-    function showDate() {
-        var suffix = "", date = new Date(), dayOfMonth = date.getDate(), dayOfWeek = date.getDay(), Month = date.getMonth(),
-            $today = $('#today'),
-            $daymonth = $('#daymonth'),
-            $month = $('#month');
-
-        var dayArray = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
-        var monthArray = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-
-
-        // Mettre à jour la date dans le HTML
-        $today.text(dayArray[dayOfWeek] + ",");
-        $daymonth.text(" " + dayOfMonth + suffix);
-        $month.text(monthArray[Month]);
-    }
-
-    // Appeler la fonction showDate() au chargement de la page
-    showDate();
-});
-
-
+// Fonction pour ajouter une tâche au tableau
 function addTaskToTable(task) {
     const tableRow = document.createElement("tr");
     tableRow.dataset.taskText = task.text;
@@ -66,6 +49,8 @@ function addTaskToTable(task) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = task.completed;
+    checkbox.setAttribute("role", "checkbox");
+    checkbox.setAttribute("aria-label", "Terminer cette tâche");
     checkbox.addEventListener("change", function () {
         tableRow.classList.toggle("completed", checkbox.checked);
         updateCounters();
@@ -86,9 +71,14 @@ function addTaskToTable(task) {
     priorityCell.textContent = task.priority;
     tableRow.appendChild(priorityCell);
 
+    tableRow.classList.add("task-row");
+    listContainer.appendChild(tableRow);
+
     const actionsCell = document.createElement("td");
     const editButton = document.createElement("button");
     editButton.innerHTML = `<img src="img/modifier.svg" alt="Modifier" width="24" height="24">`;
+    editButton.setAttribute("role", "button");
+    editButton.setAttribute("aria-label", "Modifier cette tâche");
     editButton.addEventListener("click", function () {
         const newText = prompt("Modifier la tâche", task.text);
         if (newText !== null) {
@@ -102,7 +92,9 @@ function addTaskToTable(task) {
     actionsCell.appendChild(editButton);
 
     const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = `<img src="img/effacer.svg" alt="Supprimer" width="24" height="24"  >`;
+    deleteButton.innerHTML = `<img src="img/effacer.svg" alt="Supprimer" width="24" height="24">`;
+    deleteButton.setAttribute("role", "button");
+    deleteButton.setAttribute("aria-label", "Supprimer cette tâche");
     deleteButton.addEventListener("click", function () {
         if (confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?")) {
             tableRow.remove();
@@ -112,26 +104,21 @@ function addTaskToTable(task) {
     });
     actionsCell.appendChild(deleteButton);
 
-
     tableRow.appendChild(actionsCell);
     tableRow.classList.toggle("completed", task.completed);
-    listContainer.appendChild(tableRow);
-
     updateCounters();
 }
 
-
+// Fonction pour ajouter une nouvelle tâche
 function addTask() {
     const task = inputBox.value.trim();
     const dueDate = document.getElementById('due-date').value;
     const priority = document.querySelector('input[name="priority"]:checked').value;
-    // Vérifier la date sélectionnée
+
     const selectedDate = new Date(dueDate);
     const currentDate = new Date();
 
-
     if (currentDate >= selectedDate) {
-        // Alerte si la date sélectionnée est passée ou égale à aujourd'hui
         alert("La date d'échéance doit être ultérieure à aujourd'hui.");
         return;
     }
@@ -140,7 +127,6 @@ function addTask() {
         alert("Merci de noter une tâche");
         return;
     }
-
 
     const newTask = {
         text: task,
@@ -156,10 +142,17 @@ function addTask() {
     saveData();
 }
 
+// Ajout d'un écouteur d'événement pour la touche Entrée
 inputBox.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
         addTask();
     }
 });
 
-loadData(); // Charger les données au chargement de la page
+// Chargement des données au chargement de la page
+loadData();
+
+// Fonction utilitaire pour générer un identifiant unique
+function generateUniqueId() {
+    return Math.random().toString(36).substr(2, 9);
+}
