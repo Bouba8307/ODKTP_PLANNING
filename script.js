@@ -29,6 +29,24 @@ function saveData() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+
+$(document).ready(function () {
+    function showDate() {
+        var suffix = "", date = new Date(), dayOfMonth = date.getDate(), dayOfWeek = date.getDay(), Month = date.getMonth(),
+            $today = $('#today'),
+            $daymonth = $('#daymonth'),
+            $month = $('#month');
+        var dayArray = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+        var monthArray = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+        // Mettre à jour la date dans le HTML
+        $today.text(dayArray[dayOfWeek] + ",");
+        $daymonth.text(" " + dayOfMonth + suffix);
+        $month.text(monthArray[Month]);
+    }
+    // Appeler la fonction showDate() au chargement de la page
+    showDate();
+});
+
 // Fonction pour charger les données depuis le localStorage
 function loadData() {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
