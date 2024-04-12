@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b0f2505e6827c53e16bd887666e8ed4216b49439
 ## Description
 Plannings est une application web interactive conçue pour aider les utilisateurs à gérer leurs tâches quotidiennes de manière efficace. L'application permet aux utilisateurs d'ajouter, de supprimer et de personnaliser leurs tâches, tout en offrant une expérience conviviale et esthétiquement agréable.
 
@@ -30,4 +33,4 @@ Plannings est une application web interactive conçue pour aider les utilisateur
 Ce projet a été réalisé par Boubacar Traoré.
 
 ## License
-Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
+Ce projet est sous licence MIT. 
